@@ -1,0 +1,173 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.max_w_website {
+    width: 1240px;
+    margin: auto;
+}
+
+.page .logo_currency {
+    display: flex;
+    align-items: center;
+    margin: 33px auto;
+}
+
+.page .logo_currency .logo {
+    width: 58px;
+    height: 67px;
+}
+
+.page .logo_currency .name {
+    color: #0B132A;
+    font-family: Rubik;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-left: 30px;
+}
+
+.page header {
+    background-color: #1F507E;
+    height: 80px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.page header .menu .name_menu {
+    color: #FFF;
+    font-family: Rubik;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.page header .menu {
+    position: relative;
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+.page header .menu .list_items {
+    position: absolute;
+    top: 100%;
+    border: 1px solid #1F507E;
+    background: #FFF;
+    width: 240px;
+    display: none;
+  
+}
+.page header  .menu:hover .list_items  {
+    display: block;
+}
+.page header .menu .list_items .bank{
+    padding: 25px 0;
+    align-items: center;
+    display: flex;
+    padding-left: 10px;
+    
+}
+.page header .menu .list_items a {
+    text-decoration: none;
+    font-size: 20px;
+    color:#1F507E ;
+    font-weight: 700;
+    
+}
+.page header .menu .list_items .bank:hover{
+    background-color: rgba(31, 80, 126, 0.268);;
+}
+
+
+.page header .date input,
+input:focus {
+    width: 223px;
+    height: 39px;
+    color: white;
+    background-color: #1F507E;
+    font-size: 20px;
+    border-radius: 8px;
+    border: 2px solid white;
+
+}
+
+.page .container {
+    background: rgba(31, 80, 126, 0.14);
+    padding-bottom: 50px;
+}
+
+.page .container .title {
+    color: #0B132A;
+    font-family: Rubik;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 0 30px;
+    padding: 40px 0px;
+}
+
+.page .container .table {
+    margin: 0 90px;
+}
+
+.page .container .table .size_20px {
+    font-size: 20px;
+    margin-top: 30px;
+}
+
+.page .container .table .wrapper_table {
+    margin: 20px 0px;
+    border: 1px solid;
+}
+
+.page .container .table .row {
+    display: flex;
+
+}
+
+.page .container .table .row .item1 {
+    flex: 2;
+}
+
+.page .container .table .row .item2 {
+    flex: 1.5;
+}
+
+.page .container .table .row .item3 {
+    flex: 1.5;
+}
+
+.page .container .table .row .item4 {
+    flex: 1.5;
+}
+
+.page .container .table .row .item5 {
+    flex: 1;
+}
+
+.border_1 {
+    border: 1px solid black;
+    padding: 10px 12px;
+}
+
+.header_table {
+    color: #1E1E1E;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 130%;
+    /* 26px */
+    /* text-align: center; */
+}
