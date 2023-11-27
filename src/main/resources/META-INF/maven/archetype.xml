@@ -1,9 +1,0 @@
-<archetype>
-  <id>DW_2023_T5_Nhom6</id>
-  <sources>
-    <source>src/main/java/App.java</source>
-  </sources>
-  <testSources>
-    <source>src/test/java/AppTest.java</source>
-  </testSources>
-</archetype>
