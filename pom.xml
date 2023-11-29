@@ -25,5 +25,11 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.13</version> <!-- Use the latest version available -->
         </dependency>
+        <!-- Thư viện kết nối DB-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.23</version> <!-- Chọn phiên bản phù hợp -->
+        </dependency>
     </dependencies>
 </project>
