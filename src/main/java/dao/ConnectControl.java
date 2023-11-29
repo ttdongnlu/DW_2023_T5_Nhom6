@@ -40,7 +40,6 @@ public class ConnectControl implements IConnect {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-
         return connection;
     }
 

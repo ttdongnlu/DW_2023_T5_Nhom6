@@ -23,6 +23,7 @@ public class ConnectDM implements IConnect {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            connectToMySQL();
         }
     }
 
@@ -35,8 +36,8 @@ public class ConnectDM implements IConnect {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Tạo kết nối
-            connection = DriverManager.getConnection( url, userName, password);
-
+            connection = DriverManager.getConnection(url, userName, password);
+            System.out.println("kết nối thành công");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
@@ -57,7 +58,6 @@ public class ConnectDM implements IConnect {
     }
 
 
-
     public void setUrl(String url) {
         this.url = url;
     }
@@ -71,7 +71,7 @@ public class ConnectDM implements IConnect {
     }
 
     public static void main(String[] args) {
-        ConnectDM connectDM=new ConnectDM();
-        System.out.println(connectDM.url +connectDM.userName+connectDM.password);
+        ConnectDM connectDM = new ConnectDM();
+        System.out.println(connectDM.url + connectDM.userName + connectDM.password);
     }
 }
