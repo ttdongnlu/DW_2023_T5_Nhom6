@@ -13,5 +13,74 @@
         <maven.compiler.target>19</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+<<<<<<< Updated upstream
 
+=======
+    <dependencies>
+        <!-- Other dependencies -->
+        <dependency>
+            <groupId>org.apache.xmlbeans</groupId>
+            <artifactId>xmlbeans</artifactId>
+            <version>5.0.3</version> <!-- Use the latest version available -->
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.14</version> <!-- Use the latest version available -->
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.15.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.8</version>
+        </dependency>
+        <!-- Thư viện kết nối DB-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version> <!-- Chọn phiên bản phù hợp -->
+        </dependency>
+        <dependency>
+            <groupId>org.jdbi</groupId>
+            <artifactId>jdbi3-core</artifactId>
+            <version>3.37.1</version>
+        </dependency>
+        <dependency>
+            <groupId>bayern.steinbrecher</groupId>
+            <artifactId>DBConnector</artifactId>
+            <version>0.15</version>
+        </dependency>
+        <dependency>
+            <groupId>bayern.steinbrecher</groupId>
+            <artifactId>DBConnector</artifactId>
+            <version>0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>example</groupId>
+            <artifactId>example</artifactId>
+            <version>-</version>
+        </dependency>
+        <dependency>
+            <groupId>db</groupId>
+            <artifactId>db</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.grahamedgecombe.db</groupId>
+            <artifactId>db</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+    </dependencies>
+    <repositories>
+        <repository>
+            <id>clojars</id>
+            <name>Clojars</name>
+            <url>https://repo.clojars.org/</url>
+        </repository>
+    </repositories>
+>>>>>>> Stashed changes
 </project>
