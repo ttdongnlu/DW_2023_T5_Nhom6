@@ -38,7 +38,7 @@ public class ConfigService {
 
     public control_data_file getFileToday(int id) {
         return JDBIConnector.getControlJdbi().withHandle(handle -> {
-         List<control_data_file> listFile= handle.createQuery("SELECT cf.id, cf.note, cf.create_at,cf.create_by, cf.data_range, cf.df_config_id, cf.file_timestamp, cf.stt from control_data_file cf join control_data_file_config c on c.id =cf.df_config_id  where c.id=" + id + " and cf.data_range= '" + LocalDate.now() + "'").mapToBean(control_data_file.class).stream().toList();
+         List<control_data_file> listFile= handle.createQuery("SELECT cf.id, cf.file_timestamp, cf.data_range,cf.note, cf.create_at,cf.create_by, cf.stt from control_data_file cf join control_data_file_config c on c.id =cf.df_config_id  where c.id=" + id + " and cf.data_range= '" + LocalDate.now() + "'").mapToBean(control_data_file.class).stream().toList();
           if(listFile.size() != 1){
               return null;
           }
@@ -55,7 +55,7 @@ public class ConfigService {
 
     public control_data_file_config getConfigByConfigFileId(int id) {
         return JDBIConnector.getControlJdbi().withHandle(handle -> {
-            return handle.createQuery("SELECT c.code_file, c.columns_file, c.create_at, c.create_by,c.description, c.format, c.id, c.location, c.name_file, c.separator_file, c.source_path from control_data_file_config c where c.id=" + id).mapToBean(control_data_file_config.class).one();
+            return handle.createQuery("SELECT c.code_file, c.columns_file, c.create_at, c.create_by,c.description, c.format, c.id, c.location, c.name_file, c.separator_file, c.source_path from control_data_file_config c join control_data_file cf on c.id= cf.df_config_id  where cf.id=" + id).mapToBean(control_data_file_config.class).one();
         });
     }
 
@@ -102,5 +102,6 @@ public class ConfigService {
     public static void main(String[] args) {
         getInstance().setTimestamp(1);
         System.out.println(getInstance().getFileToday(2));
+//        System.out.println(getInstance().getFileToday(3));
     }
 }

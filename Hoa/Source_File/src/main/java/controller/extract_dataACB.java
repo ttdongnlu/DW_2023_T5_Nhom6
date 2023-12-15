@@ -21,93 +21,71 @@ public class extract_dataACB {
     public void crawlerData() {
         // lấy ra 1 dòng dữ liệu trong bảng config
         control_data_file_config fileConfig = ConfigService.getInstance().getConfigById(2);
-        // Lấy ra 1 dòng liệu trong bảng data_file của ngày hôm nay
+        // Lấy ra 1 dòng liệu trong bảng control_data_file của ngày hôm nay
         control_data_file filedata;
-         filedata = ConfigService.getInstance().getFileToday(fileConfig.getId());
-        // Kiểm tra nếu file_data không có dữ liệu thì thêm dữ liệu mới vào
+        filedata = ConfigService.getInstance().getFileToday(fileConfig.getId());
+        // 1. Kiểm tra nếu file_data không có dữ liệu thì thêm dữ liệu mới vào
         if (filedata == null) {
-            filedata = new control_data_file(1, fileConfig, LocalDateTime.now(), LocalDate.now(), "tiến hành trích xuất dữ liệu từ nguồn", LocalDateTime.now(), "HOA", "PREPARE");
+            //1.1 insert data in control_data_file
+            filedata = new control_data_file(0, fileConfig, LocalDateTime.now(), LocalDate.now(), "tiến hành trích xuất dữ liệu từ nguồn", LocalDateTime.now(), "HOA", "PREPARE");
             ConfigService.getInstance().insertDataFile(filedata);
         }
-
-        // Kiểm tra dòng dữ liệu có đang chạy hay không nếu không thì tiến hành chạy dòng dữ liệu
+        // 2 Kiểm tra dòng dữ liệu có đang chạy hay không nếu không thì tiến hành chạy dòng dữ liệu
         if (!filedata.getStt().equals("CRAWLING")) {
-            ConfigService.getInstance().setStatusConfig("CRAWLING", fileConfig.getId());
+            // 2.1 update stt
+            ConfigService.getInstance().setStatusConfig("CRAWLING",filedata.getId());
             // Tiến hành crawl dữ liệu
-            ConfigService.getInstance().setTimestamp(fileConfig.getId());
+            ConfigService.getInstance().setTimestamp(filedata.getId());
         }
         try {
-            // Connect to a website and get the HTML
+            //3.Extract data and save
             System.out.println("ACB");
             Document document = Jsoup.connect(fileConfig.getSource_path()).get();
             // Kiểm tra url website
-            if (document.toString() =="") {
+            if (document.toString() == "") {
                 // Nếu lỗi đường dẫn cập nhật status ERROR và ghi lỗi vào log
-                ConfigService.getInstance().setStatusConfig("ERROR", fileConfig.getId());
+                ConfigService.getInstance().setStatusConfig("ERROR", filedata.getId());
                 LogService.getInstance().addLog(new log(1, "CRAWL DATA FROM SOURCE TO FILE", "ERROR", "URL NOT FOUND", LocalDateTime.now()));
                 return;
             }
             // Extract and print the title of the HTML document
             String title = document.title();
-            System.out.println("Title: " + title);
-
-            // Đặt tên cho cột chứa đường dẫn hình ảnh (ví dụ: cột thứ 2)
-            int imageColumnIndex = 1;
-
+            System.out.println("Title: " + "ACBank");
             Element table = document.select("table.exTbl").first();
             Elements rows = table.select("tr.ex-even, tr.ex-odd");
-            // Create a CSVWriter
             String location = fileConfig.getLocation();
             String namefile = fileConfig.getName_file();
             String format = fileConfig.getFormat();
             String seperal = fileConfig.getSeparator_file();
             String timestamp = filedata.getFile_timestamp().toLocalDate().toString();
             System.out.println(timestamp);
+            // tên file
             String sourceFile = location + namefile + seperal + timestamp + format;
             System.out.println(sourceFile);
             File file = new File(sourceFile);
-            // Kiểm tra lôi đường dẫn file csv
+            // 4. Kiểm tra đường dẫn file csv
             if (file.getPath() == "") {
-                // Nếu lỗi cập nhật status và ghi lỗi vào log
+                // 5 Nếu lỗi cập nhật status và ghi lỗi vào log
                 ConfigService.getInstance().setStatusConfig("ERROR", filedata.getId());
                 LogService.getInstance().addLog(new log(1, "CRAWL DATA FROM SOURCE TO FILE", "ERROR", "PATH FILE NOT FOUND", LocalDateTime.now()));
             }
             FileWriter fileWriter = new FileWriter(file);
             CSVWriter csvWriter = new CSVWriter(fileWriter);
-            // Iterate over each row
             for (Element row : rows) {
-                // Select all cells in the row
                 Elements cells = row.select("td");
-
                 if (cells.text().isEmpty()) continue;
-
-                // Create an array to hold data for each row
-                String[] rowData = new String[cells.size() + 4]; // Increased size by 2 for the image and datetime columns
-
-                // Populate the array with data from each cell
+                String[] rowData = new String[cells.size() + 4];
                 for (int i = 0; i < cells.size(); i++) {
-                    if (i < imageColumnIndex) {
-                        rowData[i] = cells.get(i).text();
-                    } else {
-                        rowData[i + 1] = cells.get(i).text();
-                    }
+                    rowData[i] = cells.get(i).text();
                 }
-                // Add image URL to the array
-                String imageUrl = getImageUrlFromCell(cells.get(imageColumnIndex));
-                rowData[imageColumnIndex] = imageUrl;
-
-                LocalDateTime dt = LocalDateTime.now();
                 csvWriter.writeNext(rowData);
             }
-
             // Close the CSVWriter and FileWriter
             csvWriter.close();
             fileWriter.close();
-            // Cập status trong bảng data_file DONE
+            //6.update stt và insert stt vào log khi lấy dữ liệu thành công
             ConfigService.getInstance().setStatusConfig("DONE", filedata.getId());
-            // Viết vào log crawl dữ liệu thành công
             LogService.getInstance().addLog(new log(1, "CRAWL DATA FROM SOURCE TO FILE", "DONE", "CRAWL DATA SUCCESS", LocalDateTime.now()));
-
             System.out.println("Data has been written to output.csv");
         } catch (IOException e) {
             ConfigService.getInstance().setStatusConfig("ERROR", filedata.getId());
@@ -117,15 +95,5 @@ public class extract_dataACB {
         }
     }
 
-    // Thêm phương thức để lấy đường dẫn hình ảnh từ cell
-    private static String getImageUrlFromCell(Element cell) {
-        // Điều chỉnh selector tùy thuộc vào cách dữ liệu hình ảnh được đặt trong HTML
-        Element imageElement = cell.select("img").first();
-        if (imageElement != null) {
-            // Lấy đường dẫn từ thuộc tính src hoặc data-src
-            return imageElement.attr("src");
-        }
-        return "";
-    }
 
 }
