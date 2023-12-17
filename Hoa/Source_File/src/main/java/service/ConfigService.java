@@ -26,7 +26,7 @@ public class ConfigService {
         return JDBIConnector.getControlJdbi().withHandle(handle -> {
 
             List<control_data_file> list = handle.createQuery(
-                            "SELECT cf.id, cf.note, cf.create_at,cf.create_by, cf.data_range, cf.df_config_id, cf.file_timestamp, cf.stt from control_data_file cf")
+                            "SELECT cf.id, cf.note, cf.create_at,cf.create_by, cf.data_range, cf.df_config_id, cf.stt from control_data_file cf")
                     .mapToBean(control_data_file.class).stream().collect(Collectors.toList());
             for (control_data_file c : list
             ) {
@@ -38,7 +38,7 @@ public class ConfigService {
 
     public control_data_file getFileToday(int id) {
         return JDBIConnector.getControlJdbi().withHandle(handle -> {
-         List<control_data_file> listFile= handle.createQuery("SELECT cf.id, cf.file_timestamp, cf.data_range,cf.note, cf.create_at,cf.create_by, cf.stt from control_data_file cf join control_data_file_config c on c.id =cf.df_config_id  where c.id=" + id + " and cf.data_range= '" + LocalDate.now() + "'").mapToBean(control_data_file.class).stream().toList();
+         List<control_data_file> listFile= handle.createQuery("SELECT cf.id, cf.data_range,cf.note, cf.create_at,cf.create_by, cf.stt from control_data_file cf join control_data_file_config c on c.id =cf.df_config_id  where c.id=" + id + " and cf.data_range= '" + LocalDate.now() + "'").mapToBean(control_data_file.class).stream().toList();
           if(listFile.size() != 1){
               return null;
           }
@@ -85,13 +85,12 @@ public class ConfigService {
 
     public void insertDataFile(control_data_file df) {
          JDBIConnector.getControlJdbi().withHandle(handle -> {
-            return handle.createUpdate("INSERT INTO control_data_file VALUES (:id,:df_config_id,:file_timestamp,:date_range,:note,:create_at,:create_by,:stt)")
+            return handle.createUpdate("INSERT INTO control_data_file VALUES (:id,:df_config_id,:date_range,:note,:create_at,:create_by,:stt)")
                     .bind("id",getMaxID().size()+1)
                     .bind("df_config_id",df.getControl_data_file().getId())
-                    .bind("file_timestamp",df.getFile_timestamp())
                     .bind("date_range",df.getData_range())
                     .bind("note",df.getNote())
-                    .bind("create_at",df.getDatecreate_at())
+                    .bind("create_at",df.getCreate_at())
                     .bind("create_by",df.getCreate_by())
                     .bind("stt",df.getStt())
                     .execute();
@@ -100,7 +99,7 @@ public class ConfigService {
 
 
     public static void main(String[] args) {
-        getInstance().setTimestamp(1);
+//        getInstance().setTimestamp(1);
         System.out.println(getInstance().getFileToday(2));
 //        System.out.println(getInstance().getFileToday(3));
     }

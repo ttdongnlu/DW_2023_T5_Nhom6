@@ -41,7 +41,11 @@ public class Staging {
             }
         } catch (SQLException e) {
             System.err.println("Error: " + e.getMessage());
+<<<<<<< HEAD
         }
+=======
+        }coo
+>>>>>>> main
     }
     public static void main(String[] args) {
         Staging staging = new Staging();

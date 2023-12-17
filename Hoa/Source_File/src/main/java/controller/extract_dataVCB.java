@@ -28,14 +28,14 @@ public class extract_dataVCB {
         // 1 Kiểm tra nếu file_data không có dữ liệu thì thêm dữ liệu mới vào
         if (filedata == null) {
             //1.1 insert data
-            filedata = new control_data_file(0, fileConfig, LocalDateTime.now(), LocalDate.now(), "tiến hành trích xuất dữ liệu từ nguồn", LocalDateTime.now(), "HOA", "PREPARE");
+            filedata = new control_data_file(0, fileConfig, LocalDate.now(), "tiến hành trích xuất dữ liệu từ nguồn", LocalDateTime.now(), "HOA", "PREPARE");
             ConfigService.getInstance().insertDataFile(filedata);
         }
         // 2 Kiểm tra dòng dữ liệu có đang chạy hay không nếu không thì tiến hành chạy dòng dữ liệu
         if (!filedata.getStt().equals("CRAWLING")) {
             ConfigService.getInstance().setStatusConfig("CRAWLING", filedata.getId());
             // Tiến hành crawl dữ liệu
-            ConfigService.getInstance().setTimestamp(filedata.getId());
+//            ConfigService.getInstance().setTimestamp(filedata.getId());
         }
         try {
             //3.Extract data and save
@@ -58,9 +58,9 @@ public class extract_dataVCB {
             String namefile = fileConfig.getName_file();
             String format = fileConfig.getFormat();
             String seperal = fileConfig.getSeparator_file();
-            String timestamp = filedata.getFile_timestamp().toLocalDate().toString();
-            System.out.println(timestamp);
-            String sourceFile = location + namefile + seperal + timestamp + format;
+            String create_at = filedata.getCreate_at().toLocalDate().toString();
+            System.out.println(create_at);
+            String sourceFile = location + namefile + seperal + create_at + format;
             System.out.println(sourceFile);
             File file = new File(sourceFile);
             // 4. Kiểm tra đường dẫn file csv

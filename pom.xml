@@ -13,19 +13,27 @@
         <maven.compiler.target>19</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 
 =======
+=======
+>>>>>>> main
     <dependencies>
         <!-- Other dependencies -->
         <dependency>
             <groupId>org.apache.xmlbeans</groupId>
             <artifactId>xmlbeans</artifactId>
+<<<<<<< HEAD
             <version>5.0.3</version> <!-- Use the latest version available -->
+=======
+            <version>3.1.0</version> <!-- Use the latest version available -->
+>>>>>>> main
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
+<<<<<<< HEAD
             <version>4.5.14</version> <!-- Use the latest version available -->
         </dependency>
         <dependency>
@@ -37,11 +45,15 @@
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
             <version>5.8</version>
+=======
+            <version>4.5.13</version> <!-- Use the latest version available -->
+>>>>>>> main
         </dependency>
         <!-- Thư viện kết nối DB-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+<<<<<<< HEAD
             <version>8.0.33</version> <!-- Chọn phiên bản phù hợp -->
         </dependency>
         <dependency>
@@ -83,4 +95,9 @@
         </repository>
     </repositories>
 >>>>>>> Stashed changes
+=======
+            <version>8.0.23</version> <!-- Chọn phiên bản phù hợp -->
+        </dependency>
+    </dependencies>
+>>>>>>> main
 </project>

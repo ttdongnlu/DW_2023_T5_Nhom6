@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public class control_data_file {
     int id;
     control_data_file_config control_data_file;
-    LocalDateTime file_timestamp;
+//    LocalDateTime file_timestamp;
     LocalDate data_range;
     String note;
     LocalDateTime create_at;
@@ -17,13 +17,12 @@ public class control_data_file {
 
     }
 
-    public control_data_file(int id, control_data_file_config control_data_file, LocalDateTime file_timestamp, LocalDate data_range, String note, LocalDateTime datecreate_at, String create_by, String stt) {
+    public control_data_file(int id, control_data_file_config control_data_file, LocalDate data_range, String note, LocalDateTime create_at, String create_by, String stt) {
         this.id = id;
         this.control_data_file = control_data_file;
-        this.file_timestamp = file_timestamp;
         this.data_range = data_range;
         this.note = note;
-        this.create_at = datecreate_at;
+        this.create_at = create_at;
         this.create_by = create_by;
         this.stt = stt;
     }
@@ -44,14 +43,6 @@ public class control_data_file {
         this.control_data_file = control_data_file;
     }
 
-    public LocalDateTime getFile_timestamp() {
-        return file_timestamp;
-    }
-
-    public void setFile_timestamp(LocalDateTime file_timestamp) {
-        this.file_timestamp = file_timestamp;
-    }
-
     public LocalDate getData_range() {
         return data_range;
     }
@@ -68,12 +59,12 @@ public class control_data_file {
         this.note = note;
     }
 
-    public LocalDateTime getDatecreate_at() {
+    public LocalDateTime getCreate_at() {
         return create_at;
     }
 
-    public void setDatecreate_at(LocalDateTime datecreate_at) {
-        this.create_at = datecreate_at;
+    public void setCreate_at(LocalDateTime create_at) {
+        this.create_at = create_at;
     }
 
     public String getCreate_by() {
@@ -97,7 +88,6 @@ public class control_data_file {
         return "control_data_file{" +
                 "id=" + id +
                 ", control_data_file=" + control_data_file +
-                ", file_timestamp=" + file_timestamp +
                 ", data_range=" + data_range +
                 ", note='" + note + '\'' +
                 ", datecreate_at=" + create_at +

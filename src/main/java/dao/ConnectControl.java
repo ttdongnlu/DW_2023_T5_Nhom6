@@ -26,7 +26,10 @@ public class ConnectControl implements IConnect {
         }
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
     @Override
     public Connection connectToMySQL() {
         connection = null;
